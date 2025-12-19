@@ -13,7 +13,7 @@ public class Departmental_v3 {
         System.out.print("Enter Bill Amount: ");
         double billAmount = sc.nextDouble();
 
-        // make them into variables to able to use in methods and for the file writing
+        // make them into variables to able to use in file writing section
         String usageCategory = getUsageCategory(monthlyConsumption);
         double computedBill = computeBill(monthlyConsumption);
         double discountFactor = applyDiscount(computedBill, usageCategory);
