@@ -1,1 +1,1 @@
-School purposes only.
+School Purposes Only.
