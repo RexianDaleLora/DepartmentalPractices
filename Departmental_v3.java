@@ -16,10 +16,12 @@ public class Departmental_v3 {
         // Process billing details
         String usageCategory = getUsageCategory(monthlyConsumption);
         double computedBill = computeBill(monthlyConsumption);
-        double discountFactor = applyDiscount(computedBill, monthlyConsumption);
+        double discountFactor = applyDiscount(computedBill, usageCategory);
 
         // Record bill details to a file
         try (FileWriter fw = new FileWriter("ElectricityBillReport.txt" , true)) {
+
+            // Write details to the file
             fw.write("Household: " + houseHoldName + "\n");
             fw.write("Monthly Consumption: " + monthlyConsumption + " kWh\n");
             fw.write("Category: " + usageCategory + "\n");
@@ -27,6 +29,7 @@ public class Departmental_v3 {
             fw.write(String.format("Discounted Bill: ₱%.2f%n", discountFactor));
             fw.write("--------------------------------------------------\n");
 
+            // Display summary to the user
             System.out.println("\nChange: ₱" + String.format("%.2f", billAmount - discountFactor));
             System.out.println("Bill details recorded successfully!");
         } catch (IOException e) {
@@ -61,12 +64,15 @@ public class Departmental_v3 {
     }
 
     // Apply discount based on consumption
-    public static double applyDiscount(double computeBill, int consumption) {
+    public static double applyDiscount(double computeBill, String usageCategory) {
         double discount;
-        if (consumption <= 200) {
-            discount = 0.90;
-        } else {
-            discount = 1.00;
+        switch (usageCategory) {
+            case "Low Usage":
+                discount = 0.90;
+                break;
+            default:
+                discount = 1.00;
+                break;
         }
         return computeBill * discount;
     }
